@@ -12,13 +12,13 @@ Post.find({}, (err, posts) => {
   console.log(err, posts);
 });
 
-// Post.create(
-//   {
-//     title: "My second post",
-//     description: "My second description",
-//     content: "Lorem second content",
-//   },
-//   (err, post) => {
-//     console.log(err, post);
-//   }
-// );
+Post.create(
+  {
+    title: "My second post",
+    description: "My second description",
+    content: "Lorem second content",
+  },
+  (err, post) => {
+    console.log(err, post);
+  }
+);

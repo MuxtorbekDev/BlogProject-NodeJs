@@ -1,0 +1,61 @@
+@layout("layouts.app")
+
+@section("content")
+      <!-- Page Header-->
+      <header
+      class="masthead"
+      style="background-image: url('/assets/img/contact-bg.jpg')"
+    >
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="page-heading">
+              <h1>Contact Me</h1>
+              <span class="subheading">Have questions? I have answers.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Main Content-->
+    <main class="mb-4">
+      <div class="container px-4 px-lg-5">
+              <form action="/post/create" method="POST">
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    name="title"
+                    type="text"
+                    placeholder="Enter your title..."
+                  />
+                  <label for="email">Title </label>
+                </div>
+                <div class="form-floating">
+                  <input
+                    class="form-control"
+                    name="description"
+                    type="text"
+                    placeholder="Enter your description..."
+                  />
+                  <label for="email">Description</label>
+                </div>
+                <div class="form-floating">
+                  <textarea
+                    class="form-control"
+                    name="content"
+                    placeholder="Enter your content here..."
+                    style="height: 10rem"
+                  ></textarea>
+                  <label>Message</label>
+                </div>
+                <!-- Submit Button-->
+                <button
+                  class="btn btn-primary my-4"
+
+                >
+                  Send
+                </button>
+              </form>
+      </div>
+    </main>
+@endsection
