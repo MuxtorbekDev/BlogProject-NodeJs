@@ -12,14 +12,16 @@ mongoose.connect(
     console.log("Connected to database");
   }
 );
+
 app.use(express.static("public"));
 app.use(expressEdge.engine);
 app.set("views", `${__dirname}/views`);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("index");
+app.get("/", async (req, res) => {
+  const posts = await Post.find();
+  res.render("index", { posts });
 });
 
 app.get("/about", (req, res) => {
