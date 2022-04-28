@@ -32,9 +32,11 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-app.get("/post", (req, res) => {
-  res.render("post");
-});
+// app.get("/post/:id", async (req, res) => {
+//   const post = await Post.findById(req.params.id);
+//   console.log(req.params);
+//   res.render("post", { post });
+// });
 
 app.get("/post/new", (req, res) => {
   res.render("create");
