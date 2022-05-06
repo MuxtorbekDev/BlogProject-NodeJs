@@ -6,6 +6,7 @@ const PostSchema = new Schema({
   title: String,
   description: String,
   content: String,
+  image: String,
   createdAt: { type: Date, default: Date.now },
 });
 
