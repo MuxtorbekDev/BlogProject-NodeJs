@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const PostSchema = new mongoose.Schema({
+const PostSchema = new Schema({
+  username: String,
   title: String,
   description: String,
   content: String,
-  username: String,
-  createdAt: { type: Date, default: new Date() },
+  createdAt: { type: Date, default: Date.now },
 });
 
 const Post = mongoose.model("Post", PostSchema);

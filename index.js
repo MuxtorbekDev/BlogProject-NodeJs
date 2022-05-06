@@ -3,6 +3,7 @@ const path = require("path");
 const expressEdge = require("express-edge");
 const mongoose = require("mongoose");
 const Post = require("./models/Post");
+const Schema = mongoose.Schema;
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", async (req, res) => {
   const posts = await Post.find();
   res.render("index", { posts });
+  // console.log(posts);
 });
 
 app.get("/about", (req, res) => {
@@ -32,12 +34,6 @@ app.get("/contact", (req, res) => {
   res.render("contact");
 });
 
-// app.get("/post/:id", async (req, res) => {
-//   const post = await Post.findById(req.params.id);
-//   console.log(req.params);
-//   res.render("post", { post });
-// });
-
 app.get("/post/new", (req, res) => {
   res.render("create");
 });
@@ -46,6 +42,17 @@ app.post("/post/create", (req, res) => {
   Post.create(req.body, (err, post) => {
     res.redirect("/");
   });
+});
+
+app.get("/post/:id", async (req, res) => {
+  const post = await Post.findOne({ _id: req.params.id });
+  res.render("post", { post });
+});
+
+app.use((err, req, res, next) => {
+  console.log(err);
+  res.render("error", { err });
+  next();
 });
 
 app.listen(5001, () => {
