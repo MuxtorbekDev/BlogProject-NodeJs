@@ -9,9 +9,9 @@ const getPostsController = require("./controllers/getPosts");
 const postsNewController = require("./controllers/postsNew");
 const aboutPageController = require("./controllers/aboutPage");
 const contactPageController = require("./controllers/contactPage");
-const {
-  vailDateCreatePostMiddleware,
-} = require("./middlewares/vailDateCreatePost");
+const createUserController = require("./controllers/createUser");
+const userStoreController = require("./controllers/userStore");
+const { vailDatePost } = require("./middlewares/vailDatePost");
 const app = express();
 
 mongoose.connect(
@@ -33,8 +33,10 @@ app.get("/", homePageController);
 app.get("/about", aboutPageController);
 app.get("/contact", contactPageController);
 app.get("/post/new", postsNewController);
-app.post("/post/create", vailDateCreatePostMiddleware, createPostController);
+app.post("/post/create", vailDatePost, createPostController);
 app.get("/post/:id", getPostsController);
+app.get("/reg", createUserController);
+app.post("/auth/reg", userStoreController);
 
 app.use((err, req, res, next) => {
   console.log(err);

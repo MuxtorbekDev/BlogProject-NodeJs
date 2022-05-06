@@ -1,4 +1,4 @@
-const vailDateCreatePostMiddleware = (req, res, next) => {
+const vailDatePost = (req, res, next) => {
   if (
     !(req.files && req.files.image) ||
     !req.body.title ||
@@ -10,4 +10,4 @@ const vailDateCreatePostMiddleware = (req, res, next) => {
   next();
 };
 
-module.exports = { vailDateCreatePostMiddleware };
+module.exports = { vailDatePost };
