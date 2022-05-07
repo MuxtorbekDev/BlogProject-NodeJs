@@ -17,7 +17,8 @@ const loginController = require("./controllers/login");
 const loginStoreController = require("./controllers/loginStore");
 const app = express();
 
-const { vailDatePost } = require("./middlewares/vailDatePost");
+const { vailDatePost } = require("./middleware/vailDatePost");
+const authMiddleware = require("./middleware/auth");
 
 // connect to mongo
 const MongoUrl =
@@ -44,8 +45,8 @@ app.set("views", `${__dirname}/views`);
 app.get("/", homePageController);
 app.get("/about", aboutPageController);
 app.get("/contact", contactPageController);
-app.get("/post/new", postsNewController);
-app.post("/post/create", vailDatePost, createPostController);
+app.get("/post/new", authMiddleware, postsNewController);
+app.post("/post/create", authMiddleware, vailDatePost, createPostController);
 app.get("/post/:id", getPostsController);
 app.get("/reg", createUserController);
 app.post("/auth/reg", userStoreController);
