@@ -21,12 +21,20 @@
 
     <main class="mb-4">
       <div class="container px-4 px-lg-5">
+        @if(errors.length > 0)
+        <ul class="list-group">
+          @each(err in errors)
+          <li class="list-group-item text-danger">{{ err }}</li>
+          @endeach
+        </ul>
+         @endif
               <form action="/auth/reg" method="POST" >
                 <div class="form-floating">
                   <input
                     class="form-control"
                     name="username"
                     type="text"
+                    value="{{data.username || ""}}"
                     placeholder="Enter your name..."
                   />
                   <label for="email">Your Name </label>
@@ -36,6 +44,7 @@
                     class="form-control"
                     name="email"
                     type="email"
+                    value="{{data.email || ""}}"
                     placeholder="Enter your email..."
                   />
                   <label for="email">Email </label>
@@ -45,6 +54,7 @@
                     class="form-control"
                     name="password"
                     type="password"
+                    value="{{data.password || ""}}"
                     placeholder="Enter your password..."
                   />
                   <label for="email">Password</label>

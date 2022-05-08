@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const fileUpload = require("express-fileupload");
 const expressSession = require("express-session");
 const mongoStore = require("connect-mongo");
+const connectFlash = require("connect-flash");
 
 const homePageController = require("./controllers/homePage");
 const createPostController = require("./controllers/createPost");
@@ -15,10 +16,13 @@ const createUserController = require("./controllers/createUser");
 const userStoreController = require("./controllers/userStore");
 const loginController = require("./controllers/login");
 const loginStoreController = require("./controllers/loginStore");
+const logoutController = require("./controllers/logout");
+
 const app = express();
 
 const { vailDatePost } = require("./middleware/vailDatePost");
 const authMiddleware = require("./middleware/auth");
+const redirectIfAut = require("./middleware/redirect");
 
 // connect to mongo
 const MongoUrl =
@@ -39,21 +43,28 @@ app.use(express.static("public"));
 app.use(expressEdge.engine);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(connectFlash());
 
 app.set("views", `${__dirname}/views`);
 
+app.use("*", (req, res, next) => {
+  app.locals.auth = req.session.userId;
+  next();
+});
 app.get("/", homePageController);
 app.get("/about", aboutPageController);
 app.get("/contact", contactPageController);
 app.get("/post/new", authMiddleware, postsNewController);
 app.post("/post/create", authMiddleware, vailDatePost, createPostController);
 app.get("/post/:id", getPostsController);
-app.get("/reg", createUserController);
+app.get("/reg", redirectIfAut, createUserController);
 app.post("/auth/reg", userStoreController);
-app.get("/login", loginController);
+app.get("/login", redirectIfAut, loginController);
 app.post("/auth/log", loginStoreController);
+app.get("/logout", authMiddleware, logoutController);
 
 // ...
+
 app.use((err, req, res, next) => {
   console.log(err);
   res.render("error", { err });
