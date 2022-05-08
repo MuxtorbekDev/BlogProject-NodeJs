@@ -65,10 +65,8 @@ app.get("/logout", authMiddleware, logoutController);
 
 // ...
 
-app.use((err, req, res, next) => {
-  console.log(err);
-  res.render("error", { err });
-  next();
+app.use((req, res) => {
+  res.render("error");
 });
 app.listen(5001, () => {
   console.log("Server has started on Port 5001...");
